@@ -1,0 +1,391 @@
+{{!-- <h1>{{title}}</h1>
+--}}
+{{#if loaded}}
+<div class="progress">
+    <div class="indeterminate"></div>
+</div>
+{{/if}}
+
+<div class="row">
+<div class="col s12">
+    <ul class="tabs">
+        <li class="tab col s3">
+            <a class="active" href="#slider">Slider</a>
+        </li>
+        <li class="tab col s3">
+            <a href="#users">Users</a>
+        </li>
+        <li class="tab col s3">
+            <a href="#courses">Courses</a>
+        </li>
+    </ul>
+</div>
+<div id="slider" class="col s12">
+    <h2>Main banner</h2>
+    <div class="col s12 m6">
+
+        {{#if slider}}
+            <ul class="collection">
+                {{#each slider}}
+                    <li class="collection-item avatar">
+                        <img
+                            src="data:{{file.contentType}};base64,
+                     {{file.data}}"
+                            class="circle">
+                        <span class="title">{{title}}</span>
+                        <p>{{subtitle}}</p>
+                        <div
+                            class=""
+                            style="display:flex; width: 20px; height: 20px; background: {{background}}"></div>
+                        <form action="admin/slider/remove" method="POST">
+                            <input type="hidden" name="id" value="{{_id}}">
+                            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                            <button class="waves-effect waves-light btn secondary-content">
+                                <i class="material-icons left">delete</i>Delete</button>
+                        </form>
+
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+    <div class="col s12 m6">
+        <form
+            action="admin/slider/add"
+            method="POST"
+            enctype="multipart/form-data"
+            id="form-view">
+            <div class="input-field">
+                <input
+                    value=""
+                    id="title-slide"
+                    name="title"
+                    type="text"
+                    class="validate"
+                    required="required"
+                    data-length="30">
+                <label for="title">Title slide</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div class="input-field">
+                <input
+                    value=""
+                    id="subtitle"
+                    name="subtitle"
+                    type="text"
+                    class="validate"
+                    required="required">
+                <label for="subtitle">Subtitle slide</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div>
+                <input value="" id="background" name="background" type="color">
+                <label for="background">Chose background color for slide</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input value="" id="url" name="url" type="text" class="validate">
+                    <label for="url">URL for redirect for slide</label>
+                    <span class="helper-text" data-error="Plase is not be empty"></span>
+                </div>
+
+                <div class="file-field input-field col s12 m6">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" multiple="multiple" name="file" required="required"></div>
+                    <div class="file-path-wrapper">
+                        <input
+                            class="file-path validate"
+                            type="text"
+                            name="file_extention"
+                            placeholder="Upload one or more files"></div>
+                </div>
+            </div>
+
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+            <button class="waves-effect waves-light btn">
+                <i class="material-icons left">create</i>Create</button>
+        </form>
+    </div>
+</div>
+<div id="users" class="col s12">
+    {{#if allUsers}}
+        <h2>All Registred Users</h2>
+        <button
+            class="waves-effect waves-light btn modal-trigger"
+            data-target="modal-add-user">
+            <i class="material-icons left">add</i>Add new course</button>
+        <ul class="collection">
+            {{#each allUsers}}
+                <li class="collection-item avatar">
+                    <img
+                        src="data:{{avatar.contentType}};base64,
+                     {{avatar.data}}"
+                        class="circle">
+                    <span class="title">{{role}}</span>
+                    <p>{{name}}<br>
+                        {{email}}
+                    </p>
+                    <div class="secondary-content">
+                        <button
+                            class="waves-effect waves-light btn red btn-user-remove"
+                            data-remove="{{_id}}"
+                            data-id="{{_id}}"
+                            data-csrf="{{@root.csrf}}">
+                            <i class="material-icons left">delete</i>Delete</button>
+                        <button
+                            class="waves-effect waves-light btn modal-trigger btn-user-edit"
+                            data-id="{{_id}}"
+                            data-target="modal-user-edit"
+                            data-csrf="{{@root.csrf}}">
+                            <i class="material-icons left">edit</i>Edit</button>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+</div>
+<div class="col s12" id="courses">
+
+    {{#if courses}}
+        <h2>All added courses</h2>
+        <button
+            class="waves-effect waves-light btn modal-trigger"
+            data-target="modal-course-add">
+            <i class="material-icons left">add</i>Add new user</button>
+        <ul class="collection" id="course-list">
+            {{#each courses}}
+                <li class="collection-item avatar">
+                    <img
+                        src="data:{{file.contentType}};base64,
+                     {{file.data}}"
+                        class="circle">
+                    <span class="title">{{title}}</span>
+                    <p>
+                        <strong class="badge-currency">{{price}}</strong>
+                    </p>
+                    <p class="short-decr">{{short_description}}</p>
+
+                    <div class="secondary-content">
+                        <button
+                            class="waves-effect waves-light btn red btn-remove-course"
+                            data-id="{{_id}}"
+                            data-csrf="{{@root.csrf}}">
+                            <i class="material-icons left">delete</i>Delete</button>
+                        <button
+                            class="waves-effect waves-light btn modal-trigger btn-course-edit"
+                            data-id="{{_id}}"
+                            data-target="modal-course-edit"
+                            data-csrf="{{@root.csrf}}">
+                            <i class="material-icons left">edit</i>Edit</button>
+                    </div>
+
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+</div>
+
+<!-- Modal Structure -->
+<div id="modal-add-user" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h3>Add user</h3>
+        <form
+            action="admin/user/add"
+            method="POST"
+            id="add-user"
+            enctype="multipart/form-data">
+
+            <div class="input-field">
+                <input
+                    value=""
+                    id="name"
+                    name="name"
+                    type="text"
+                    class="validate"
+                    required="required">
+                <label for="name">Enter name</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div class="input-field">
+                <input
+                    value=""
+                    id="remail"
+                    name="email"
+                    type="email"
+                    class="validate"
+                    required="required">
+                <label for="remail">Enter email</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div class="input-field">
+                <input
+                    value=""
+                    id="rpassword"
+                    name="password"
+                    type="password"
+                    class="validate"
+                    required="required">
+                <label for="rpassword">Enter passwords</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+
+            <div class="input-field">
+                <input
+                    value=""
+                    id="confirm"
+                    name="confirm"
+                    type="password"
+                    class="validate"
+                    required="required">
+                <label for="confirm">Re-enter password</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Avatar</span>
+                    <input type="file" name="file"></div>
+                <div class="file-path-wrapper">
+                    <input
+                        class="file-path validate"
+                        type="text"
+                        name="avatar_extention"
+                        placeholder="Upload one or more files"></div>
+
+            </div>
+
+            <div class="input-field">
+                <select id="role" name="role">
+                    <option value="client" disabled="disabled" selected="selected">Choose your option</option>
+                    <option value="root">Admin</option>
+                    <option value="client">Client</option>
+                </select>
+                <label>Materialize Select</label>
+            </div>
+
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button
+            class="modal-close waves-effect waves-blue btn-flat"
+            form="add-user"
+            type="submit">Create</button>
+    </div>
+</div>
+
+<div id="modal-user-edit" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h3>Update user</h3>
+
+    </div>
+    <div class="modal-footer">
+        <button
+            class="modal-close waves-effect waves-blue btn-flat"
+            form="user-edit"
+            data-submit="true"
+            type="submit">Create</button>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal-course-add" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h3>Add new course</h3>
+        <form
+            action="course/add"
+            method="POST"
+            enctype="multipart/form-data"
+            id="course-add-new">
+            <div class="input-field">
+                <input
+                    value=""
+                    id="title"
+                    name="title"
+                    type="text"
+                    class="validate"
+                    required="required"
+                    data-length="30">
+                <label for="title">Course name</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div class="input-field">
+                <input
+                    value=""
+                    id="price"
+                    name="price"
+                    type="number"
+                    class="validate"
+                    required="required"
+                    min="1">
+                <label for="price">Pricing</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input value="" id="img" name="img" type="text" class="validate">
+                    <label for="img">Image URL</label>
+                    <span class="helper-text" data-error="Plase is not be empty"></span>
+                </div>
+
+                <div class="file-field input-field col s12 m6">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" multiple="multiple" name="file"></div>
+                    <div class="file-path-wrapper">
+                        <input
+                            class="file-path validate"
+                            type="text"
+                            name="file_extention"
+                            placeholder="Upload one or more files"></div>
+                </div>
+            </div>
+            <div class="input-field">
+                <textarea
+                    id="s_desc"
+                    name="short_description"
+                    cols="30"
+                    rows="10"
+                    class="validate materialize-textarea"
+                    required="required"></textarea>
+                <label for="s_desc">Short description</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button
+            class="waves-effect waves-blue btn-flat"
+            form="course-add-new"
+            type="submit">Create</button>
+    </div>
+</div>
+
+<div id="modal-course-edit" class="modal modal-fixed-footer">
+    <div class="modal-content">
+
+    </div>
+    <div class="modal-footer">
+        <button
+            class="waves-effect waves-blue btn-flat"
+            form="course-add-new"
+            type="submit">Create</button>
+    </div>
+</div>
+
+{{#if error}}
+    <script>
+        setTimeout(() => {
+
+            let toastHTML = `<span>{{error}}</span>`;
+            M.toast({html: toastHTML});
+        }, 1000)
+    </script>
+{{/if}}

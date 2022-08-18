@@ -1,0 +1,113 @@
+<div class = "row" > <div class="col s6 offset-s3">
+    <ul class="tabs">
+        <li class="tab col s6">
+            <a href="#login">Login</a>
+        </li>
+        <li class="tab col s6">
+            <a class="active" href="#registration">Registration</a>
+        </li>
+    </ul>
+</div>
+<div id="login" class="col s6 offset-s3">
+    <h1>Autorization</h1>
+    <form
+        action="/auth/login"
+        method="POST"
+        enctype="application/x-www-form-urlencoded">
+        <div class="input-field">
+            <input
+                value=""
+                id="email"
+                name="email"
+                type="email"
+                class="validate"
+                required="required">
+                <label for="email">Enter email</label>
+                <span class="helper-text" data-error="Plase is not be empty"></span>
+            </div>
+            <div class="input-field">
+                <input
+                    value=""
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="validate"
+                    required="required">
+                    <label for="password">Enter passwords</label>
+                    <span class="helper-text" data-error="Plase is not be empty"></span>
+                </div>
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+
+                    <button class="waves-effect waves-light btn">
+                        <i class="material-icons left">login</i>Login</button>
+                </form>
+            </div>
+            <div id="registration" class="col s6 offset-s3">
+                <h1>Create account</h1>
+                <form
+                    action="/auth/registration"
+                    method="POST"
+                    enctype="application/x-www-form-urlencoded">
+                    <div class="input-field">
+                        <input
+                            value=""
+                            id="name"
+                            name="name"
+                            type="text"
+                            class="validate"
+                            required="required">
+                            <label for="name">Enter name</label>
+                            <span class="helper-text" data-error="Plase is not be empty"></span>
+                        </div>
+                        <div class="input-field">
+                            <input
+                                value=""
+                                id="remail"
+                                name="email"
+                                type="email"
+                                class="validate"
+                                required="required">
+                                <label for="remail">Enter email</label>
+                                <span class="helper-text" data-error="Plase is not be empty"></span>
+                            </div>
+                            <div class="input-field">
+                                <input
+                                    value=""
+                                    id="rpassword"
+                                    name="password"
+                                    type="password"
+                                    class="validate"
+                                    required="required">
+                                    <label for="rpassword">Enter passwords</label>
+                                    <span class="helper-text" data-error="Plase is not be empty"></span>
+                                </div>
+
+                                <div class="input-field">
+                                    <input
+                                        value=""
+                                        id="confirm"
+                                        name="confirm"
+                                        type="password"
+                                        class="validate"
+                                        required="required">
+                                        <label for="confirm">Re-enter password</label>
+                                        <span class="helper-text" data-error="Plase is not be empty"></span>
+                                    </div>
+
+                                    <input type="hidden" name="_csrf" value="{{csrf}}">
+
+                                        <button class="waves-effect waves-light btn">
+                                            <i class="material-icons left">person</i>Registration</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            {{#if error}}
+                            <script>
+                                setTimeout(() => {
+
+                                    let toastHTML = `<span>{{error}}</span>`;
+                                    M.toast({html: toastHTML});
+                                }, 1000)
+                            </script>
+                            {{/if}}

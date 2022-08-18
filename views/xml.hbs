@@ -1,0 +1,43 @@
+<form action="/xml" method="POST">
+    <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+    <button type="submit">send</button>
+</form>
+<yml_catalog date='2021-11-16, 08:00'>
+    <shop>
+        <name>Центр комплектации строительными материалами ТермаСтил</name>
+        <company>ТермаСтил</company>
+        <url>https://thermasteel.ua/</url>
+        <currencies>
+            <currency id='UAH' rate='1'/>
+        </currencies>
+        <offers>
+            {{#each courses}}
+                <offer id="19305" available="true">
+                    <url>http://abc.ua/catalog/muzhskaya_odezhda/kurtki/kurtkabx.html</url>
+                    <price>4499</price>
+                    <currencyid>UAH</currencyid>
+                    <categoryid>391</categoryid>
+                    <rz_group_id>152162011</rz_group_id>
+                    <rz_id_for_group>16623755</rz_id_for_group>
+                    <picture>http://abc.ua/upload/iblock/a53/a5391cddb40be91705.jpg</picture>
+                    <picture>http://abc.ua/upload/iblock/9d0/9d06805d219fb525fc.jpg</picture>
+                    <picture>http://abc.ua/upload/iblock/93d/93de38537e1cc1f8f2.jpg</picture>
+                    <vendor>Abc clothes</vendor>
+                    <stock_quantity>100</stock_quantity>
+                    <name>Куртка Abc clothes Scoperandom-HH 146 см Черная (1323280942900)</name>
+                    <description>
+                        <![CDATA[]]>
+                    </description>
+                    <param name="Рост">146 см</param>
+                    <param name="Сезон">Весна-Осень</param>
+                    <param name="Цвет">Черный</param>
+                    <param name="Стиль">Повседневный (casual)</param>
+                    <param name="Особенности">Модель с капюшоном</param>
+                    <param name="Состав">92% полиэстер, 8% эластан</param>
+                    <param name="Страна производитель товара">Эстония</param>
+                    <param name="Артикул">58265468</param>
+                </offer>
+            {{/each}}
+        </offers>
+    </shop>
+</yml_catalog>

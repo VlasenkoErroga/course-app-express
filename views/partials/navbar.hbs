@@ -1,0 +1,360 @@
+<nav class="teal lighten-2">
+    <div class="container">
+        <div class="nav-wrapper">
+            <a href="#" data-target="slide-out" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <a href="/" class="brand-logo">
+                <i class="material-icons">golf_course</i>CursesApp</a>
+            <ul class="right hide-on-med-and-down">
+                {{#if isSearch }}
+                    <li class="active">
+                        <a href="/search">
+                            <i class="material-icons">search</i>
+                        </a>
+                    </li>
+                {{else}}
+                    <li>
+                        <a href="/search">
+                            <i class="material-icons">search</i>
+                        </a>
+                    </li>
+                {{/if}}
+
+                {{#if isCourses }}
+                    <li class="active">
+                        <a href="/courses">
+                            <i class="material-icons">view_module</i>
+                        </a>
+                    </li>
+                {{else}}
+                    <li>
+                        <a href="/courses">
+                            <i class="material-icons">view_module</i>
+                        </a>
+                    </li>
+                {{/if}}
+
+                {{#if isAbout }}
+                    <li class="active">
+                        <a href="/about">
+                            <i class="material-icons">data_usage</i>
+                        </a>
+                    </li>
+                {{else}}
+                    <li>
+                        <a href="/about">
+                            <i class="material-icons">data_usage</i>
+                        </a>
+                    </li>
+                {{/if}}
+
+                {{#if isAuth}}
+
+                    <li>
+                        <a href="#" data-target='dropdownUser' class="dropdown-trigger">
+                            <i class="material-icons">person</i>
+
+                        </a>
+                    </li>
+
+                    <ul id='dropdownUser' class='dropdown-content'>
+                        {{#if isAdd }}
+                            <li class="active">
+                                <a href="/add">
+                                    <i class="material-icons">data_saver_on</i>
+                                    Add course
+                                </a>
+                            </li>
+                        {{else}}
+                            <li>
+                                <a href="/add">
+                                    <i class="material-icons">data_saver_on</i>
+                                    Add course
+                                </a>
+                            </li>
+                        {{/if}}
+                        {{#if isCard }}
+                            <li class="active">
+                                <a href="/card">
+                                    <i class="material-icons">local_mall</i>
+                                    Basket
+                                </a>
+                            </li>
+                        {{else}}
+                            <li>
+                                <a href="/card">
+                                    <i class="material-icons">local_mall</i>
+                                    Basket 
+                                </a>
+                                
+                            </li>
+                        {{/if}}
+                        {{#if isOrders }}
+                            <li class="active">
+                                <a href="/orders">
+                                    <i class="material-icons">list_alt</i>
+                                    Orders
+                                </a>
+                            </li>
+                        {{else}}
+                            <li>
+                                <a href="/orders">
+                                    <i class="material-icons">list_alt</i>
+                                    Orders
+                                </a>
+                            </li>
+                        {{/if}}
+
+                        {{#if isFavorite}}
+                            <li class="active">
+                                <a href="/favorite">
+                                    <i class="material-icons">favorite</i>
+                                    Favorite list
+                                </a>
+                            </li>
+                        {{else}}
+                            <li>
+                                <a href="/favorite">
+                                    <i class="material-icons">favorite</i>
+                                    Favorite list
+                                </a>
+                            </li>
+                        {{/if}}
+                        {{#if isProfile }}
+                            <li class="active">
+                                <a href="/profile">
+                                    <i class="material-icons">fingerprint</i>
+                                    Profile
+                                </a>
+                            </li>
+                        {{else}}
+                            <li>
+                                <a href="/profile">
+                                    <i class="material-icons">fingerprint</i>
+                                    Profile
+                                </a>
+                            </li>
+                        {{/if}}
+
+                        {{#if isRoot}}
+
+                        {{#if isAdmin}}
+                        <li class="active">
+                                <a href="/admin">
+                                    <i class="material-icons">settings</i>
+                                    Admin panel
+                                </a>
+                            </li>
+                        {{else}}
+                            <li>
+                                <a href="/admin">
+                                    <i class="material-icons">settings</i>
+                                    Admin panel
+                                </a>
+                            </li>
+                        {{/if}}
+                         {{/if}}
+                        <li class="divider" tabindex="-1"></li>
+                        <li>
+                            <a href="/auth/logout">
+                                <i class="material-icons">logout</i>Logout</a>
+                        </li>
+                    </ul>
+
+                {{else}}
+                    {{#if isLogin }}
+                        <li class="active">
+                            <a href="/auth/login#login">
+                                <i class="material-icons">login</i>
+                            </a>
+                        </li>
+                    {{else}}
+                        <li>
+                            <a href="/auth/login#login">
+                                <i class="material-icons">login</i>
+
+                            </a>
+                        </li>
+                    {{/if}}
+                {{/if}}
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view">
+            <a href="#user">
+                {{#if user.avatar}}
+                    <img
+                        src="data:{{user.avatar.contentType}};base64,{{user.avatar.data}}"
+                        class="responsive-img circle">
+                {{/if}}
+            </a>
+            <a href="#name">
+                <span class="white-text name">{{user.name}}</span></a>
+            <a href="#email">
+                <span class="white-text email">{{user.email}}</span></a>
+            <a class="btn-floating btn-large waves-effect waves-light red" href="/profile">
+                <i class="material-icons">edit</i>
+            </a>
+        </div>
+    </li>
+    {{#if isAbout }}
+        <li class="active">
+            <a href="/about" class="waves-effect">
+                <i class="material-icons">data_usage</i>
+                About us
+            </a>
+        </li>
+    {{else}}
+
+        <li>
+            <a href="/about" class="waves-effect">
+                <i class="material-icons">data_usage</i>
+                About us
+            </a>
+        </li>
+    {{/if}}
+
+    {{#if isSearch }}
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li class="active">
+            <a href="/search" class="waves-effect">
+                <i class="material-icons">search</i>
+                Search
+            </a>
+        </li>
+    {{else}}
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li>
+            <a href="/search">
+                <i class="material-icons">search</i>
+                Search
+            </a>
+        </li>
+    {{/if}}
+
+    {{#if isCourses }}
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li class="active">
+            <a href="/courses" class="waves-effect">
+                <i class="material-icons">view_module</i>
+                Courses
+            </a>
+        </li>
+    {{else}}
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li>
+            <a href="/courses" class="waves-effect">
+                <i class="material-icons">view_module</i>
+                Courses
+            </a>
+        </li>
+    {{/if}}
+
+    {{#if isAuth}}
+        {{#if isAdd }}
+            <li class="active">
+                <a href="/add" class="waves-effect">
+                    <i class="material-icons">data_saver_on</i>
+                    Add course
+                </a>
+            </li>
+        {{else}}
+            <li>
+                <a href="/add" class="waves-effect">
+                    <i class="material-icons">data_saver_on</i>
+                    Add course
+                </a>
+            </li>
+        {{/if}}
+        {{#if isCard }}
+            <li class="active">
+                <a href="/card" class="waves-effect">
+                    <i class="material-icons">local_mall</i>
+                    Basket
+                </a>
+            </li>
+        {{else}}
+            <li>
+                <a href="/card" class="waves-effect">
+                    <i class="material-icons">local_mall</i>
+                    Basket
+                </a>
+            </li>
+        {{/if}}
+
+        {{#if isFavorite}}
+            <li class="active">
+                <a href="/favorite" class="waves-effect">
+                    <i class="material-icons">favorite</i>
+                    Favorite list
+                </a>
+            </li>
+        {{else}}
+            <li>
+                <a href="/favorite" class="waves-effect">
+                    <i class="material-icons">favorite</i>
+                    Favorite list
+                </a>
+            </li>
+        {{/if}}
+
+        {{#if isOrders }}
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li class="active">
+                <a href="/orders" class="waves-effect">
+                    <i class="material-icons">list_alt</i>
+                    Orders
+                </a>
+            </li>
+        {{else}}
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li>
+                <a href="/orders" class="waves-effect">
+                    <i class="material-icons">list_alt</i>
+                    Orders
+                </a>
+            </li>
+        {{/if}}
+        <li class="active">
+            <a href="/auth/logout">
+                <i class="material-icons">logout</i>
+                logout
+            </a>
+        </li>
+    {{else}}
+
+        {{#if isLogin }}
+            <li class="active">
+                <a href="/auth/login">
+                    <i class="material-icons">login</i>
+                    login
+                </a>
+            </li>
+        {{else}}
+            <li>
+                <a href="/auth/login">
+                    <i class="material-icons">login</i>
+                    login
+                </a>
+            </li>
+        {{/if}}
+    {{/if}}
+</ul>

@@ -1,0 +1,39 @@
+<h1>Basket</h1>
+
+{{#if courses.length}}
+<div id="basket">
+      <table class="highlight responsive-table">
+        <thead>
+          <tr>
+              <th>Picture</th>
+              <th>Name</th>
+              <th>Count</th>
+              <th>Price</th>
+              <th>Edit</th>
+          </tr>
+        </thead>
+
+        <tbody>
+            {{#each courses}}
+          <tr>
+            <td><img style="width:50px" src="data:{{file.contentType}};base64,
+                     {{file.data}}"></td>
+            <td>{{title}}</td>
+            <td>{{counter}}</td>
+            <td>{{price}}</td>
+            <td><button class="btn btn-primary waves-effect btn-remove-card" data-id="{{id}}" data-csrf="{{@root.csrf}}">Delete</button></td>
+          </tr>
+          {{/each}}
+          
+        </tbody>
+      </table>
+      <p class="flow-text right-align"><strong>Total price: </strong><span class="price badge-currency">{{totalPrice}}</span></p>
+
+      <form action="/orders" method="POST" class="flow-text right-align">
+      <input type="hidden" name="_csrf" value="{{csrf}}">
+      <button type="submit" class="btn">Buy now</button>
+      </form>
+{{else}}
+    <p>Sorry your basket is empty...</p>
+{{/if}}
+</div>

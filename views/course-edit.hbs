@@ -1,0 +1,118 @@
+<h1>Edit course
+    {{course.title}}</h1>
+
+<div class="row">
+
+    <div class="col s12 m6 l5 xl4 sticky-center">
+
+        <div class="card  hoverable">
+            <div class="card-image">
+                <div class="card-image__wrap">
+                    {{!-- <img src="{{img}}" alt="{{title}}"> --}}
+
+                    <img
+                        src="data:{{course.file.contentType}};base64,
+                     {{course.file.data}}"></div>
+                    <div class="new badge badge-currency teal lighten-2 white-text">
+                        {{!-- <i class="close material-icons">attach_money</i> --}}
+                        {{course.price}}
+                    </div>
+                </div>
+                <div class="card-content">
+                    <span class="card-title">Course
+                        {{course.title}}</span>
+                    <p>{{course.short_description}}</p>
+                </div>
+                <div class="card-action">
+                    <a href="#" class="">Show more</a>
+                    <a href="#" class="">Edit</a>
+
+                 
+                        <input type="hidden">
+                            <button
+                                type="submit"
+                                class="btn btn-floating halfway-fab waves-effect waves-light red">
+                                <i class="material-icons">local_mall</i>
+                            </button>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l7 xl8">
+                <form action="/courses/edit" method="POST" enctype="multipart/form-data">
+                    <div class="input-field">
+                        <input
+                            value="{{course.id}}"
+                            id="id"
+                            name="id"
+                            type="text"
+                            class="validate"
+                            required="required"
+                            hidden="hidden"></div>
+                        <div class="input-field">
+                            <input
+                                value="{{course.title}}"
+                                id="title"
+                                name="title"
+                                type="text"
+                                class="validate"
+                                required="required">
+                                <label for="title">Course name</label>
+                                <span class="helper-text" data-error="Plase is not be empty"></span>
+                            </div>
+                            <div class="input-field">
+                                <input
+                                    value="{{course.price}}"
+                                    id="price"
+                                    name="price"
+                                    type="number"
+                                    class="validate"
+                                    required="required"
+                                    min="1">
+                                    <label for="price">Pricing</label>
+                                    <span class="helper-text" data-error="Plase is not be empty"></span>
+                                </div>
+                                <div class="row">
+
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input type="file" multiple="multiple" name="file" required="required"></div>
+                                                <div class="file-path-wrapper">
+                                                    <input
+                                                        class="file-path validate"
+                                                        type="text"
+                                                        name="file_extention"
+                                                        placeholder="Upload one or more files"></div>
+                                                </div>
+                                            </div>
+                                            <div class="input-field">
+                                                <textarea
+                                                    id="s_desc"
+                                                    name="short_description"
+                                                    cols="30"
+                                                    rows="10"
+                                                    class="validate materialize-textarea"
+                                                    required="required">{{course.short_description}}</textarea>
+                                                <label for="s_desc">Short description</label>
+                                                <span class="helper-text" data-error="Plase is not be empty"></span>
+                                            </div>
+                                            <input type="hidden" name="_csrf" value="{{csrf}}">
+                                            <button type="submit" class="waves-effect waves-light btn">
+                                                <i class="material-icons left">edit</i>Edit</button>
+                                        </form>
+
+                                        <form action="/courses/remove" method="POST">
+                                        <input type="hidden" name="_csrf" value="{{csrf}}">
+                                        <input
+                                            value="{{course.id}}"
+                                            name="id"
+                                            type="text"
+                                            hidden="hidden">
+                                            <button type="submit" class="waves-effect waves-light btn red">
+                                                    <i class="material-icons left">delete</i>Delete course</button>
+                                                </button>
+                                        </form>
+                                    </div>
+
+                                </div>

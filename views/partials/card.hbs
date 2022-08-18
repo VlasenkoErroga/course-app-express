@@ -1,0 +1,60 @@
+<div class="col s12 m6 l4 xl3 d-flex-center">
+    <div class="card  hoverable">
+        <div class="card-image">
+            <a href="/courses/{{id}}" class="card-image__wrap">
+                <img src="data:{{file.contentType}};base64,
+                     {{file.data}}">
+            </a>
+            <div class="new badge badge-currency teal lighten-2 white-text">
+                {{price}}
+            </div>
+        </div>
+        <div class="card-content">
+            <a href="/courses/{{id}}" class="card-title">Course
+                {{title}}</a>
+            <p>{{short_description}}</p>
+        </div>
+        
+        <div class="card-action">
+            
+            {{#if @root.isAuth}}
+                      
+
+
+            {{#if @root.isFavorite}}
+
+            <div class="d-flex-center">
+                                <form action="/card/add" method="POST">
+                                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                                    <input type="hidden" name="id" value="{{id}}">
+                                    <button type="submit" class="btn waves-effect waves-light red"><i class="material-icons left">local_mall</i>Buy</button>
+                                </form>
+                                
+
+                               <button class="btn btn-primary waves-effect btn-remove-favorite-card" data-id="{{id}}" data-csrf="{{@root.csrf}}"><i class="material-icons left">remove</i>Delete</button>
+                                </div>
+            
+            
+            
+            {{else}}
+            <a href="/courses/{{id}}">Show more</a>
+            {{#ifeq @root.user._id userId}}
+                                <a href="/courses/{{id}}/edit?allow=true"><i class="material-icons left">edit</i></a>
+                            {{/ifeq}}
+            
+                <form action="/card/add" method="POST">
+                    <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                    <input type="hidden" name="id" value="{{id}}">
+                    <button
+                        type="submit"
+                        class="btn btn-floating halfway-fab waves-effect waves-light red">
+                        <i class="material-icons">local_mall</i>
+                    </button>
+                </form>
+            {{/if}}
+                
+
+            {{/if}}
+        </div>
+    </div>
+</div>

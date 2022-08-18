@@ -1,0 +1,208 @@
+* {
+    font-family: sans-serif;
+}
+nav{
+    background: none;
+    box-shadow: none;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.container {
+    max-width: 1500px;
+    width: 100%;
+    padding: 0 10px;
+}
+button.search {
+    min-width: 100px;
+}
+
+blockquote {
+    border-color: #4db6ac;
+}
+
+.d-flex-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.sticky-center {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 40px;
+}
+
+.card{
+    width: 100%;
+}
+.card-title {
+    min-height: 64px;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.card-image__wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    width: 100%;
+    height: 100%;
+}
+
+.card .card-image .card-title,
+.card-price {
+    color: #4db6ac;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    padding: 24px;
+}
+
+.card .card-image .badge {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    height: 32px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+
+}
+
+.card .card-image .badge .material-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.short-decr{
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 68px;
+}
+
+.card .card-content p {
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 68px;
+}
+tr {
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+td,
+th,
+tr {
+    width: 100%;
+    display: flex;
+}
+
+td:last-child,
+th:last-child {
+    justify-content: flex-end;
+}
+
+.tab > a {
+    color: #009688 !important;
+}
+.tab a.active {
+
+    background-color: #e0f2f1 !important;
+}
+.tabs .indicator {
+    background-color: #009688 !important;
+}
+.tabs {
+    margin-top: 2rem;
+}
+
+a.card-title {
+    color: black;
+}
+
+.input-field label {
+    pointer-events: none;
+}
+
+.relative {
+    position: relative;
+}
+
+form {
+    margin: 0 !important;
+    padding: 0;
+}
+#basket{
+    margin-bottom: 1rem;
+}
+
+.carousel-item a{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start; 
+    text-align: center;
+    color: white;
+}
+
+.carousel-item h2 + p{
+    text-shadow: 2px 2px rgba(0,0,0,0.6);
+}
+
+.breadcrumb{
+    color:#009688;
+}
+
+.breadcrumb::before{
+    color: #009688;
+}
+
+.breadcrumb:last-child {
+    color:#4db6ac
+}

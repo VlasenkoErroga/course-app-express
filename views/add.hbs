@@ -1,0 +1,102 @@
+<h1>Add new course</h1>
+
+<div class="row">
+
+    <div class="col s12 m6 l5 xl4 sticky-center">
+
+        <div class="card  hoverable" id="view-card">
+            <div class="card-image">
+                <div class="card-image__wrap">
+                    {{!-- <img src="{{img}}" alt="{{title}}"> --}}
+
+                    <img
+                        src="data:{{course.file.contentType}};base64,
+                     {{course.file.data}}"></div>
+                    <div class="new badge badge-currency teal lighten-2 white-text">
+                        {{!-- <i class="close material-icons">attach_money</i> --}}
+                        {{course.price}}
+                    </div>
+                </div>
+                <div class="card-content">
+                    <span class="card-title">Course
+                        {{course.title}}</span>
+                    <p>{{course.short_description}}</p>
+                </div>
+                <div class="card-action">
+                    <a href="#" class="">Show more</a>
+                    <a href="#" class="">Edit</a>
+
+                    <form action="/card/add" method="POST">
+                        <input type="hidden" name="id" value="{{course.id}}">
+                            <button
+                                type="submit"
+                                class="btn btn-floating halfway-fab waves-effect waves-light red">
+                                <i class="material-icons">local_mall</i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l7 xl8">
+                <form action="/add" method="POST" enctype="multipart/form-data" id="form-view">
+                    <div class="input-field">
+                        <input
+                            value=""
+                            id="title"
+                            name="title"
+                            type="text"
+                            class="validate"
+                            required="required"
+                            data-length="30">
+                            <label for="title">Course name</label>
+                            <span class="helper-text" data-error="Plase is not be empty"></span>
+                        </div>
+                        <div class="input-field">
+                            <input
+                                value=""
+                                id="price"
+                                name="price"
+                                type="number"
+                                class="validate"
+                                required="required"
+                                min="1">
+                                <label for="price">Pricing</label>
+                                <span class="helper-text" data-error="Plase is not be empty"></span>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <input value="" id="img" name="img" type="text" class="validate">
+                                        <label for="img">Image URL</label>
+                                        <span class="helper-text" data-error="Plase is not be empty"></span>
+                                    </div>
+
+                                    <div class="file-field input-field col s12 m6">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input type="file" multiple="multiple" name="file" required="required"></div>
+                                            <div class="file-path-wrapper">
+                                                <input
+                                                    class="file-path validate"
+                                                    type="text"
+                                                    name="file_extention"
+                                                    placeholder="Upload one or more files"></div>
+                                            </div>
+                                        </div>
+                                        <div class="input-field">
+                                            <textarea
+                                                id="s_desc"
+                                                name="short_description"
+                                                cols="30"
+                                                rows="10"
+                                                class="validate materialize-textarea"
+                                                required="required"></textarea>
+                                            <label for="s_desc">Short description</label>
+                                            <span class="helper-text" data-error="Plase is not be empty"></span>
+                                        </div>
+
+                                        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                                        <button class="waves-effect waves-light btn">
+                                            <i class="material-icons left">create</i>Create</button>
+                                    </form>
+                                </div>
+                            </div>

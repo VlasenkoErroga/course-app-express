@@ -1,0 +1,22 @@
+  {{#if slider}}
+  <div class="carousel carousel-slider center">
+    {{#if sliderButton}}
+    <div class="carousel-fixed-item center">
+      <a class="btn waves-effect white grey-text darken-text-2" href="{{sliderButton.url}}" >{{sliderButton.title}}</a>
+    </div>
+    {{/if}}
+
+    {{#each slider}}
+    <div class="carousel-item white-text" style="{{#if file}}background-image: url('data:{{file.contentType}};base64,{{file.data}}');
+    background-repeat: no-repeat;background-size: 300px; background-position: 50% 50%;{{/if}}{{#if background}} background-color:{{background}};{{/if}} "
+    {{#if background}}
+    {{!-- style="background:{{background}}" --}}
+    {{/if}} >
+    <a  href="{{url}}">
+      <h2>{{title}}</h2>
+      <p class="white-text">{{subtitle}}</p>
+      </a>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}

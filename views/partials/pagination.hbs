@@ -1,0 +1,24 @@
+<div class="row d-flex-center">
+    <ul class="pagination">
+        <li {{#if @root.pagination.prevPage}} {{else}} class="disabled" {{/if}}>
+            <a {{#if @root.pagination.prevPage}}href="?page={{@root.pagination.prevPage}}"{{/if}}>
+                <i class="material-icons">chevron_left</i>
+            </a>
+        </li>
+        {{#each pagination.page}}
+            <li
+                {{#ifeq @root.pagination.activePage count}}
+                class="waves-effect active teal lighten-2"
+                {{else}}
+                class="waves-effect"
+                {{/ifeq}}>
+                <a href="?page={{count}}">{{count}}</a>
+            </li>
+        {{/each}}
+        <li {{#if @root.pagination.nextPage}}  {{else}} class="disabled" {{/if}}>
+            <a {{#if @root.pagination.nextPage}} href="?page={{@root.pagination.nextPage}}" {{/if}}>
+                <i class="material-icons">chevron_right</i>
+            </a>
+        </li>
+    </ul>
+</div>

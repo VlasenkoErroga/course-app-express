@@ -1,0 +1,135 @@
+     {{#if isAuth}}
+     <h1>Welcome to CourseApp {{user.name}}</h1>
+    <p>We have best courses for you</p>
+      {{/if}}
+
+{{> slider }}
+
+{{#if lastFavoriteCourses.length}}
+<h2>Favorite</h2>
+      {{#each lastFavoriteCourses}}
+  <div class="row">
+    <div class="col s12 m6 l4 xl3 d-flex-center">
+      <div class="card  hoverable">
+        <div class="card-image">
+             <a href="/courses/{{id}}" class="card-image__wrap">
+            
+              <img src="data:{{file.contentType}};base64,
+                     {{file.data}}">
+             
+            </a>
+            <div class="new badge badge-currency teal lighten-2 white-text">
+                {{price}}
+                </div>
+        </div>
+        <div class="card-content">
+           <a href="/courses/{{id}}" class="card-title">Course {{title}}</a>
+          <p>{{short_description}}</p>
+        </div>
+         <div class="card-action">
+          <a href="/courses/{{id}}">Show more</a>
+          {{#if @root.isAuth}}
+
+          {{#ifeq @root.user._id userId._id}}
+          <a href="/courses/{{id}}/edit?allow=true">Edit</a>
+          {{/ifeq}}
+
+          <form action="/card/add" method="POST">
+          <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+          <input type="hidden" name="id" value="{{id}}">
+          <button type="submit" class="btn btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">local_mall</i></button>
+          </form>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  {{/each}}
+  </div>
+  {{/if}}
+  {{#if lastVisitedCourses.length}}
+  <h2>Last visited</h2>
+  <div class="row">
+      {{#each lastVisitedCourses}}
+    <div class="col s12 m6 l4 xl3 d-flex-center">
+      <div class="card  hoverable">
+        <div class="card-image">
+             <a href="/courses/{{id}}" class="card-image__wrap">
+            
+              <img src="data:{{file.contentType}};base64,
+                     {{file.data}}">
+             
+            </a>
+            <div class="new badge badge-currency teal lighten-2 white-text">
+                {{price}}
+                </div>
+        </div>
+        <div class="card-content">
+           <a href="/courses/{{id}}" class="card-title">Course {{title}}</a>
+          <p>{{short_description}}</p>
+        </div>
+         <div class="card-action">
+          <a href="/courses/{{id}}">Show more</a>
+          {{#if @root.isAuth}}
+
+          {{#ifeq @root.user._id userId._id}}
+          <a href="/courses/{{id}}/edit?allow=true">Edit</a>
+          {{/ifeq}}
+
+          <form action="/card/add" method="POST">
+          <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+          <input type="hidden" name="id" value="{{id}}">
+          <button type="submit" class="btn btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">local_mall</i></button>
+          </form>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  {{/each}}
+  </div>
+  {{/if}}
+  {{#if recomendCourse}}
+  <h2>Recomend</h2>
+  {{/if}}
+
+
+  {{#if lastAddedCourses.length}}
+  <h2>Last added course</h2>
+  <div class="row">
+    {{#each lastAddedCourses}}
+    <div class="col s12 m6 l4 xl3 d-flex-center">
+      <div class="card  hoverable">
+        <div class="card-image">
+             <a href="/courses/{{id}}" class="card-image__wrap">
+            
+              <img src="data:{{file.contentType}};base64,
+                     {{file.data}}">
+             
+            </a>
+            <div class="new badge badge-currency teal lighten-2 white-text">
+                {{price}}
+                </div>
+        </div>
+        <div class="card-content">
+           <a href="/courses/{{id}}" class="card-title">Course {{title}}</a>
+          <p>{{short_description}}</p>
+        </div>
+         <div class="card-action">
+          <a href="/courses/{{id}}">Show more</a>
+          {{#if @root.isAuth}}
+
+          {{#ifeq @root.user._id userId._id}}
+          <a href="/courses/{{id}}/edit?allow=true">Edit</a>
+          {{/ifeq}}
+
+          <form action="/card/add" method="POST">
+          <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+          <input type="hidden" name="id" value="{{id}}">
+          <button type="submit" class="btn btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">local_mall</i></button>
+          </form>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  {{/each}}
+  </div>
+    {{/if}}
