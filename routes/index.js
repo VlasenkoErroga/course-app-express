@@ -8,7 +8,6 @@ const favorite = require('./favorite')
 const orders = require('./orders')
 const auth = require('./auth')
 const profile = require('./profile')
-const xml = require('./xml')
 const admin = require('./admin')
 
 const router = {
@@ -21,7 +20,6 @@ const router = {
     orders,
     auth,
     profile,
-    xml,
     favorite,
     admin
 }

@@ -66,7 +66,6 @@ app.use('/orders', router.orders)
 app.use('/auth', router.auth)
 app.use('/profile', router.profile)
 app.use('/admin', router.admin)
-app.use('/xml', router.xml)
 
 
 //404
