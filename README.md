@@ -1,5 +1,5 @@
 # Course-app-express
-
+![CourseApp - label](https://github.com/VlasenkoErroga/course-app-express/settings/og-template "CourseApp - label")
 Welcome, wanderer! This application CourseApp doing for practice. Education for a work server on Express and work MongoDB. Also was interesting how sends e-mail users with nodejs.
 Works project we can see in [CourseApp](https://sheltered-hollows-58910.herokuapp.com/)
 
