@@ -1,0 +1,40 @@
+<div class = "container" > <div class="row">
+    <div id="resetPass" class="col s6 offset-s3">
+        <h1>{{title}}</h1>
+        <form
+            action="/auth/password"
+            method="POST"
+            enctype="application/x-www-form-urlencoded">
+
+            <div class="input-field">
+                <input
+                    value=""
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="validate"
+                    required="required" />
+                    <label for="password">New password</label>
+                    <span class="helper-text" data-error="Plase is not be empty"></span>
+                </div>
+
+                <input type="hidden" name="userId" value="{{userId}}" />
+                <input type="hidden" name="token" value="{{token}}" />
+                <input type="hidden" name="_csrf" value="{{csrf}}" />
+
+                    <button class="waves-effect waves-light btn">
+                        <i class="material-icons left">restor</i>Reset password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{#if error}}
+    <script>
+        setTimeout(() => {
+
+            let toastHTML = `<span>{{error}}</span>`;
+            M.toast({html: toastHTML});
+        }, 1000)
+    </script>
+    {{/if}}

@@ -2,82 +2,13 @@ const {Router} = require('express')
 const router = Router()
 const models = require('../models/index.js')
 const middlewere = require('../middlewere/index.js')
-const nodemailer = require('nodemailer');
-const { google } = require("googleapis");
 const variable = require('../var')
-const fs = require('fs')
-const path = require('path')
+const { orderEmail, sendEmail } = require('../emails')
+// const nodemailer = require('nodemailer');
+// const { google } = require("googleapis");
+//const path = require('path')
 
 
-// These id's and secrets should come from .env file.
-const CLIENT_ID = variable.GC_CLIENT_ID;
-const CLEINT_SECRET = variable.GC_SECRET_KEY;
-const REFRESH_TOKEN = variable.GC_REFRESH_TOKEN;
-const REDIRECT_URI = variable.REDIRECT_URI;
-
-const oAuth2Client = new google.auth.OAuth2(
-  CLIENT_ID,
-  CLEINT_SECRET,
-  REDIRECT_URI
-);
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-
-async function sendMail(req, order) {
-  try {
-    const accessToken = await oAuth2Client.getAccessToken();
-
-    const transport = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: variable.GC_EMAIL,
-        clientId: CLIENT_ID,
-        clientSecret: CLEINT_SECRET,
-        refreshToken: REFRESH_TOKEN,
-        accessToken: accessToken,
-      },
-    });
-
-    const mailOptions = {
-      from: variable.GC_EMAIL,
-      to: req.user.email, 
-      subject: `New order ${order.orderNumber}`,
-      text: 'text',
-      html: `<header>Welcome! We grearing that. New order ${order._id}</header>
-      <body>  
-      <table class="highlight responsive-table">
-        <thead>
-          <tr>
-              <th>Name</th>
-              <th>Count</th>
-              <th>Price</th>
-              <th>Edit</th>
-          </tr>
-        </thead>
-
-        <tbody>
-        ${order.courses.map(item => {
-            return ` 
-            <tr>
-              <td>${item.course.title}</td>
-              <td>${item.counter}</td>
-              <td>${item.course.price}</td>
-            </tr>`
-            })}
-        </tbody>
-      </table>
-      <p ><strong>Total price: </strong><span >${order.totalPrice} USD</span></p>
-
-      </body>
-      <footer>${order.date}</footer>`,
-    };
-
-    const result = await transport.sendMail(mailOptions);
-    return result;
-  } catch (error) {
-    return error;
-  }
-}
 
 
 
@@ -144,12 +75,14 @@ router.post('/', middlewere.auth, async (req, res, next) => {
 
         
         // in this place calling fn sendmail
-
-        await sendMail(req, order)
+        res.redirect('/orders')
+        await sendEmail(orderEmail(variable, req.user.email, order))
         .then((result) => console.log('Email sent...', result))
         .catch((error) => console.log(error.message));
 
-
+        await sendEmail(orderEmail(variable, variable.GC_EMAIL, order))
+        .then((result) => console.log('Email sent...', result))
+        .catch((error) => console.log(error.message));
 
         await order.save()
 
@@ -157,7 +90,6 @@ router.post('/', middlewere.auth, async (req, res, next) => {
             .user
             .clearBasket()
 
-        res.redirect('/orders')
     } catch (e) {
         console.log(e)
     }

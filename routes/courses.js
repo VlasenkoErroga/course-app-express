@@ -135,7 +135,6 @@ router.post('/edit', middlewere.auth, async (req, res) => {
             fullname: req.file.fullname
         }
 
-        // await models.Course.findByIdAndUpdate(id, req.body)
         Object.assign(course, req.body)
         await course.save()
         res.redirect('/courses')
@@ -147,7 +146,6 @@ router.post('/edit', middlewere.auth, async (req, res) => {
 router.post('/remove', middlewere.auth, async (req, res) => {
 
     try {
-        // await models.Course.findByIdAndRemove(req.body.id)
 
         await models
             .Course

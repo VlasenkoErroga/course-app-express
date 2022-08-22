@@ -29,7 +29,6 @@ router.get('/', middlewere.root, async (req, res, next) => {
 router.post('/slider/add', middlewere.root, async (req, res, next) => {
 
     try {
-        console.log('/slider/add', '\n', req.body)
         console.log(req.body)
         const slide = await new models.SliderMain({
             title: req.body.title,
@@ -49,6 +48,7 @@ router.post('/slider/add', middlewere.root, async (req, res, next) => {
 
         await slide.save()
         res.redirect('/admin#slider')
+        req.flash('error', 'Slide was added.')
 
     } catch (error) {
         res
@@ -61,12 +61,12 @@ router.post('/slider/add', middlewere.root, async (req, res, next) => {
 router.post('/slider/remove', middlewere.root, async (req, res, next) => {
 
     try {
-        console.log('/slider/remove', '\n', req.body)
         await models
             .SliderMain
             .deleteOne({_id: req.body.id})
 
         res.redirect('/admin#slider')
+        req.flash('error', 'Slide was deleted.')
     } catch (error) {
         console.log(error)
     }
@@ -78,7 +78,7 @@ router.post('/slider/remove', middlewere.root, async (req, res, next) => {
 
 router.delete('/course/remove/:id', middlewere.root, async (req, res, next) => {
         try {
-            console.log('/course/remove/:id', '\n', req.body)
+
             res.header({loaded: true})
             await models
                 .Course
@@ -92,6 +92,7 @@ router.delete('/course/remove/:id', middlewere.root, async (req, res, next) => {
             res
                 .status(200)
                 .json(courses)
+                req.flash('error', 'Course was deleted.')
         } catch (error) {
             console.log(error)
         }
@@ -101,7 +102,7 @@ router.delete('/course/remove/:id', middlewere.root, async (req, res, next) => {
 router.post('/course/add', middlewere.root, async (req, res, next) => {
 
     try {
-        console.log('/course/add', '\n', req.body)
+        
         const course = await new models.Course({
             title: req.body.title,
             price: req.body.price,
@@ -124,6 +125,7 @@ router.post('/course/add', middlewere.root, async (req, res, next) => {
 
         await course.save()
         res.redirect('/admin#courses')
+        req.flash('error', 'Course was added.')
 
     } catch (error) {
         console.log(error)
@@ -133,12 +135,13 @@ router.post('/course/add', middlewere.root, async (req, res, next) => {
 
 router.get('/course/edit/:id', middlewere.root, async (req, res, next) => {
     try {
-        // console.log('/user/edit/:id', '\n', req.body)
+
         const courseEdit = await models
             .Course
             .find({_id: req.params.id})
 
         res.send(courseEdit)
+        req.flash('error', 'Course was edited.')
     } catch (error) {
         console.log(error)
     }
@@ -150,7 +153,6 @@ router.get('/course/edit/:id', middlewere.root, async (req, res, next) => {
 
 router.post('/user/add', middlewere.root, async (req, res, next) => {
     try {
-        console.log('/user/add', '\n', req.body)
         const {email, password, confirm, name, role} = req.body
 
         const candidate = await models
@@ -213,12 +215,12 @@ router.post('/user/add', middlewere.root, async (req, res, next) => {
 
 router.get('/user/edit/:id', middlewere.root, async (req, res, next) => {
     try {
-        // console.log('/user/edit/:id', '\n', req.body)
         const userEdit = await models
             .User
             .find({_id: req.params.id})
 
         res.send(userEdit)
+        req.flash('error', 'User was edited.')
     } catch (error) {
         console.log(error)
     }
@@ -227,13 +229,11 @@ router.get('/user/edit/:id', middlewere.root, async (req, res, next) => {
 router.post('/user/update', middlewere.root, async (req, res, next) => {
 
     try {
-        console.log('/user/update', '\n', req.body, req.params)
 
         const { password, confirm} = req.body
 
     const areSamePass = password === confirm ? true : false
 
-    console.log(areSamePass)
     if(areSamePass){
         const user = await models.User.findById(req.body._id)
 
@@ -256,6 +256,7 @@ router.post('/user/update', middlewere.root, async (req, res, next) => {
     Object.assign(user, toChange)
     await user.save()
     res.redirect('/admin#users')
+    req.flash('error', 'User was edited.')
     } else {
         req.flash('error', 'Passwords do not match')
         res.redirect('/admin#users')
@@ -273,7 +274,6 @@ router.post('/user/update', middlewere.root, async (req, res, next) => {
 
 router.delete('/user/remove/:id', middlewere.root, async (req, res, next) => {
     try {
-        console.log('/user/remove/:id', '\n', req.body)
         await models
             .User
             .deleteOne({_id: req.params.id})
@@ -285,6 +285,9 @@ router.delete('/user/remove/:id', middlewere.root, async (req, res, next) => {
         res
             .status(200)
             .json(allUsers)
+
+            req.flash('error', 'User was deleted.')
+            
     } catch (error) {
         console.log(error)
     }

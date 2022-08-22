@@ -50,7 +50,9 @@ const usreSchema = new Schema({
             }
         ]
     },
-    visitedCourse: Array,
+    visitedCourse: {
+        type: Array
+    },
     avatar: {
         data: Buffer,
         contentType: String,
@@ -68,6 +70,12 @@ const usreSchema = new Schema({
     limit: {
         type: Number,
         default: 4
+    },
+    resetToken: {
+        type: String
+    },
+    resetTokenExp: {
+        type: Date
     }
 })
 

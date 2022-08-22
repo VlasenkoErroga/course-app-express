@@ -2,6 +2,9 @@ const {Router} = require('express')
 const router = Router()
 const models = require('../models/index')
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto')
+const variable = require('../var')
+const { sendEmail, resetPassword } = require('../emails')
 
 router.get('/login', async (req, res, next) => {
     res.render('auth/login', {
@@ -99,6 +102,105 @@ router.post('/registration', async (req, res) => {
 
     } catch (err) {
         console.log(err)
+    }
+})
+
+router.get('/reset', (req, res, next) => {
+    res.render('auth/reset', {
+        title: 'Reset pasword',
+        error: req.flash('error')
+    })
+})
+
+router.post('/reset', (req, res, next) => {
+
+    try {
+        crypto.randomBytes(32, async (error, buffer)=> {
+            if( error ){
+                req.flash('error', 'Somesing went wrong')
+                return res.redirect('/auth/reset')
+            }
+
+            const token = buffer.toString('hex')
+            const candidate = await models.User.findOne({email: req.body.email})
+
+            if(candidate){
+                candidate.resetToken = token
+                candidate.resetTokenExp = Date.now() +  60 * 60 * 4 * 1000
+                await candidate.save()
+
+                await sendEmail(resetPassword(variable, candidate.email, token))
+                .catch((error) => console.log(error.message));
+
+                res.redirect('/auth/login')
+
+            } else {
+                req.flash('error', 'This email is not exsist.')
+                return res.redirect('/auth/reset')
+            }
+        })
+
+        
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.get('/password/:token', async (req, res, next) => {
+    try {
+        if(!req.params.token){
+            res.redirect('/auth/login')
+        }
+    
+        const user = await models.User.findOne({
+            resetToken: req.params.token,
+            resetTokenExp: {$gt: Date.now()}
+        })
+        
+
+        if(!user){
+            res.redirect('/auth/login#login')
+        } else {
+            res.render('auth/restore', {
+                title: 'Restore access',
+                userId: user._id.toString(),
+                token: req.params.token,
+                error: req.flash('error')
+            })
+        } 
+
+    } catch (error) {
+        console.log(error)
+    }
+
+   
+})
+
+router.post('/password', async (req, res, next) => {
+
+
+    try {
+        const user = await models.User.findOne({
+            _id: req.body.userId,
+            resetToken: req.body.token,
+            resetTokenExp: {$gt: Date.now()}
+        })
+
+        if(user) {
+            user.password = await bcrypt.hash(req.body.password, 10)
+            user.resetToken = undefined
+            user.resetTokenExp = undefined
+
+            user.save()
+            res.redirect('/auth/login')
+
+        } else {
+            req.flash('error', 'Time existing token ending. Please try again.')
+            res.redirect('/auth/login')
+        }
+        
+    } catch (error) {
+        console.log(error)
     }
 })
 
