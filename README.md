@@ -21,8 +21,8 @@ Works project we can see in [CourseApp](https://sheltered-hollows-58910.herokuap
 - :white_check_mark: ~~Authorization users with email and passwords.~~
 - :white_check_mark: ~~Authorization users Auth2 for sending email.~~
 - :white_check_mark: ~~Realization page 404~~
-- :black_square_button: User password recovery with email.
-- :black_square_button: Email order notice user with role admin.
+- :white_check_mark: ~~User password recovery with email.~~
+- :white_check_mark: ~~Email order notice user with role admin.~~
 - :black_square_button: Sending picture or files with email.
 - :black_square_button: Realization google maps and adds marker for maps with google api.
-- :black_square_button: Realization  routes between points
+- :black_square_button: Realization routes between points on the map.
